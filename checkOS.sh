@@ -1,10 +1,10 @@
 #!/bin/bash
-echo ' Type your IP: '
+echo ' =======Type your IP======= '
 read ip;
-echo ' Typeprefix: '
+echo ' =======Type prefix===== '
 read prex;
 # Check syntax
-[ "$ip" != ' ' ] && [ "$prex" != ' ' ] && echo " Scanning $ip/$prex :" 
+[ "$ip" != ' ' ] && [ "$prex" != ' ' ] && echo " Scanning $ip/$prex.......^... :" 
 #list ip
 nmap -sn "$ip/$prex" | cut -d " " -f 5 | sed '/latency)./d' | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" > list.txt
 ## detect OS
