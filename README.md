@@ -1,1 +1,2 @@
-Check OS.sh
+- Check OS.sh
+- Update ansible ejabberd
