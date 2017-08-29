@@ -1,0 +1,7 @@
+---
+# defaults file for ejabberd
+ejb_pkg: ejabberd
+host_name: "{{ ansible_default_ipv4['address'] }}"
+user_admin: xiaoyue
+user_pass: 123456
+

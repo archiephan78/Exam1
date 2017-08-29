@@ -1,0 +1,21 @@
+---
+####
+  - name: install ejabberd
+    sudo: yes
+    apt:
+      name: "{{ ejb_pkg }}"
+      update_cache: yes
+###
+  - name: config file
+    template:
+      src: ejabberd.yml.j2
+      dest: /etc/ejabberd/ejabberd.yml
+    notify: restart ejabberd
+###
+#  - name: create user 
+#    action: ejabberd_user username={{ user_admin }} host={{ host_name }} password= {{ user_pass }}
+  - name: create a user if it does not exists
+    ejabberd_user:
+      username: "{{ user_admin }}"
+      host: "{{ host_name }}"
+      password: "{{ user_pass }}"

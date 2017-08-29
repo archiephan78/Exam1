@@ -1,0 +1,6 @@
+---
+### start ejabberd service
+  - name: start service
+    service:
+      name: ejabberd
+      state: started

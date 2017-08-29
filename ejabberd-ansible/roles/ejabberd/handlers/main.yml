@@ -1,0 +1,7 @@
+---
+# handlers file for ejabberd
+  - name: restart ejabberd service
+    sudo: yes
+    service:
+      name: ejabberd
+      state: restarted
