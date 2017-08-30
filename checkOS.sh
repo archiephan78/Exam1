@@ -1,8 +1,8 @@
 #!/bin/bash
 echo ' =======Type your IP======= '
 read ip;
-echo ' =======Type prefix===== '
-read prex;
+echo ' =======Type subnet===== '
+read sub;
 # Check syntax
 #if [ "$ip" != "" ] && [ "$sub" != "" ]  then 
 #       echo " Try again :"
@@ -17,7 +17,7 @@ while   [[ -z "$ip" ]] && [[ -z "$sub" ]]; do
 done
 start=$(date +%s.%N)
 #list ip
-nmap -sn "$ip/$prex" | cut -d " " -f 5 | sed '/latency)./d' | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" > list.txt
+nmap -sn "$ip/$sub" | cut -d " " -f 5 | sed '/latency)./d' | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" > list.txt
 ## detect OS
 #cat list.txt << EOF 
 for i in $(cat list.txt);
