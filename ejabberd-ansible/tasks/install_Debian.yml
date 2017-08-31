@@ -5,12 +5,16 @@
     apt:
       name: "{{ ejb_pkg }}"
       update_cache: yes
+      state: present
 ###
   - name: config file
     template:
       src: ejabberd.yml.j2
       dest: /etc/ejabberd/ejabberd.yml
-#    notify: restart ejabberd service
+      mode: 0644
+    notify: restart ejabberd service
+#  - name: restart service
+#    shell: service ejabberd restart
 ###
 #  - name: create user 
 #    action: ejabberd_user username={{ user_admin }} host={{ host_name }} password= {{ user_pass }}
@@ -19,3 +23,6 @@
       username: "{{ user_admin }}"
       host: localhost
       password: "{{ user_pass }}"
+
+#  - name: restart service
+#    shell: service ejabberd restart
