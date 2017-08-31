@@ -1,9 +1,14 @@
 #!/bin/bash
 echo ' =======Type your IP======= '
 read ip;
+<<<<<<< HEAD
 echo ' =======Type subnet======== '
 read sub;
 echo " Scanning $ip/$sub......."
+=======
+echo ' =======Type subnet===== '
+read sub;
+>>>>>>> 221301ab824c0377f3151dd85ea73695c36ef071
 # Check syntax
 #if [ "$ip" != "" ] && [ "$sub" != "" ]  then 
 #       echo " Try again :"
@@ -11,10 +16,17 @@ echo " Scanning $ip/$sub......."
 #       echo " subnet: "
 #       read sub;
 while   [[ -z "$ip" ]] && [[ -z "$sub" ]]; do
+<<<<<<< HEAD
 	echo " Fail syntax. Try again:"
 	read -p " Type new IP: " ip
 	read -p " Type new subnet: " sub
 	echo " Scanning $ip/$sub.............."
+=======
+        echo " Fail syntax. Try again:"
+        read -p " Type new IP: " ip
+        read -p " Type new subnet: " sub
+        echo " Scanning $ip/$sub..............:"
+>>>>>>> 221301ab824c0377f3151dd85ea73695c36ef071
 done
 start=$(date +%s.%N)
 #list ip
@@ -43,7 +55,13 @@ done
 j=$(wc -l list.txt | grep -o '[[:digit:]]*')
 end=$(date +%s.%N)
 runtime=$(python -c "print(${end} - ${start})")
+<<<<<<< HEAD
 	echo " Have $j host up in $ip/$sub "
 	echo "Runtime was $runtime sec"
 ##end
 
+=======
+echo " Have $j host up in $ip/$sub "
+echo "Runtime was $runtime sec"
+##end
+>>>>>>> 221301ab824c0377f3151dd85ea73695c36ef071
