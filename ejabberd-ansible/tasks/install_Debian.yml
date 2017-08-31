@@ -10,7 +10,7 @@
     template:
       src: ejabberd.yml.j2
       dest: /etc/ejabberd/ejabberd.yml
-    notify: restart ejabberd service
+#    notify: restart ejabberd service
 ###
 #  - name: create user 
 #    action: ejabberd_user username={{ user_admin }} host={{ host_name }} password= {{ user_pass }}
