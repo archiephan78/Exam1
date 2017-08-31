@@ -20,14 +20,14 @@ Config file ejabberd.yml:
     - require:
       - service: check status service
 
-#Restart service:
-#  cmd.run:
-#    - name: service ejabberd restart
-#    - require:
-#      - file: Config file ejabberd.yml
+Restart service:
+  cmd.run:
+    - name: service ejabberd restart
+    - require:
+      - file: Config file ejabberd.yml
 
 Create user:
   cmd.run:
     - name: ejabberdctl register chungphan localhost 123456
-#    - require:
-#     - cmd: Restart service
+    - require:
+      - cmd: Restart service
