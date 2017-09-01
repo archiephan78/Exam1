@@ -1,27 +1,52 @@
 #!/bin/bash
-echo ' =======Type your IP======= '
-read ip;
-echo ' =======Type subnet======== '
+echo ' =======Type your IP======= ' 
+read ipadd;
+echo ' =======Type prefix====== '
 read sub;
-echo " Scanning $ip/$sub......."
+echo " Scanning $ipadd/$sub...............: "
 # Check syntax
-#if [ "$ip" != "" ] && [ "$sub" != "" ]  then 
-#       echo " Try again :"
-#       read ip;
-#       echo " subnet: "
-#       read sub;
-while   [[ -z "$ip" ]] && [[ -z "$sub" ]]; do
+while 	[[ -z "$ipadd" ]] && [[ -z "$sub" ]]; do
 	echo " Fail syntax. Try again:"
-	read -p " Type new IP: " ip
-	read -p " Type new subnet: " sub
-	echo " Scanning $ip/$sub.............."
+	read -p " Type new IP: " ipadd
+	read -p " Type new prefix: " sub
+	echo " Scanning $ipadd/$sub..............:"
 done
 start=$(date +%s.%N)
-#list ip
-nmap -sn "$ip/$sub" | cut -d " " -f 5 | sed '/latency)./d' | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" > list.txt
+### list ip in prefix. Lay 2^( 32-subnet) de ra so host trong mang, moi octet < 255 -> List ra text
+for ip in $ipadd ;do
+	net=$(echo $ip | cut -d '/' -f 1);
+	i1=$(echo $net | cut -d '.' -f4);
+	i2=$(echo $net | cut -d '.' -f3);
+	i3=$(echo $net | cut -d '.' -f2);
+	i4=$(echo $net | cut -d '.' -f1);
+	len=$(echo "2^(32 - $sub)"|bc);
+	for i in `seq $len`;do
+		echo "$i4.$i3.$i2.$i1";
+		i1=$(echo "$i1+1"|bc);
+		if [ $i1 -eq 256 ]; then
+			i1=0;
+			i2=$(echo "$i2+1"|bc);
+			if [ $i2 -eq 256 ]; then
+				i2=0;
+				i3=$(echo "$i3+1"|bc);
+				if [ $i3 -eq 256 ]; then
+				i3=0;
+				i4=$(echo "$i4+1"|bc);
+				fi
+			fi
+		fi
+	done
+done > test.txt
+## list host alive
+for n in $(cat test.txt); do
+	ping -c 1 -W 1 $n > /dev/null 2>&1
+       	if [ $? -eq 0 ]; then
+		echo $n
+	fi
+done > test2.txt	
 ## detect OS
 #cat list.txt << EOF 
-for i in $(cat list.txt);
+for i in $(cat test2.txt);
 do
 	nc -zvw 3 $i 22 > /dev/null 2>&1
 	if [ $? -eq 0 ]; then
@@ -33,17 +58,15 @@ do
 	else
 	nc -zvw 3 $i 22 3389 > /dev/null 2>&1
 	if [ $? -eq 0 ]; then
-		echo "$i is unknow OS"
+		echo " $i unknow OS"															
 	else
-		echo "$i is unknow OS"
+		echo " $i unknow OS"															
+	fi
 	fi
 fi
-fi
 done
-j=$(wc -l list.txt | grep -o '[[:digit:]]*')
-end=$(date +%s.%N)
+j=$(wc -l test2.txt | grep -o '[[:digit:]]*')
+end=$(date +%s.%N)  
 runtime=$(python -c "print(${end} - ${start})")
-	echo " Have $j host up in $ip/$sub "
-	echo "Runtime was $runtime sec"
-##end
-
+echo " Have $j host up in $ip/$sub "
+echo "Runtime was $runtime sec"
