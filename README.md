@@ -1,3 +1,4 @@
 - Check OS.sh
 - Update ansible ejabberd
 - update salt stack ejabberd 
+- update filesystem resize
