@@ -8,3 +8,5 @@
 - Càng gắn nhiều đĩa cứng và thiết lập càng nhiều LVM thì hệ thống khởi động càng lâu.
 - Khả năng mất dữ liệu khi một trong số các đĩa cứng vật lý bị hỏng.
 - Nếu một trong số các đĩa cứng vật lý trong Volume Group bị hỏng thì sẽ không thể truy cập vào các Logical Volume trong Volume Group đó.
+
+#### có thể dùng kết hợp LVM và RAID để đảm bảo tính an toàn
