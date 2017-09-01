@@ -14,9 +14,28 @@
 ####
 #  - name: create user
 #    action: ejabberd_user username={{ user_admin }} host={{ host_name }} password={{ user_pass }}
- - name: create a user if it does not exists
+- name: Make sure ejabberd running
+    command: systemctl status ejabberd
+    ignore_errors: yes
+    changed_when: false
+    register: service_ejabberd_status
+
+  - name: Report status of Ejabberd
+    fail:
+      msg: |
+        Service Ejabberd is not running.
+        Output of `systemctl status ejabberd`:
+        {{ service_ejabberd_status.stdout }}
+        {{ service_ejabberd_status.stderr }}
+    when: service_ejabberd_status | failed
+
+###
+#  - name: create user 
+#    action: ejabberd_user username={{ user_admin }} host={{ host_name }} password= {{ user_pass }}
+####
+  - name: create a user if it does not exists
     ejabberd_user:
       username: "{{ user_admin }}"
-      host: lcoalhost
+      host: "{{ ansible_hostname }}"
       password: "{{ user_pass }}"
 

@@ -168,7 +168,7 @@ listen:
     ##  "/pub/archive": mod_http_fileserver
     web_admin: true
     http_bind: true
-    ## register: true
+    register: true
     captcha: true
     tls: true
     certfile: "/etc/ejabberd/ejabberd.pem"
@@ -406,7 +406,7 @@ acl:
   ##
   admin:
      user:
-         - "{{ user_admin }}": "{{ ansible_hostname}}"
+         - "{{ user_admin }}": "{{ ansible_hostname }}"
 
   ##
   ## Blocked users
