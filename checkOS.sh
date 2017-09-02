@@ -12,7 +12,7 @@ while 	[[ -z "$ipadd" ]] && [[ -z "$sub" ]]; do
 	echo " Scanning $ipadd/$sub..............:"
 done
 start=$(date +%s.%N)
-### list ip in prefix. Lay 2^( 32-subnet) de ra so host trong mang, moi octet < 255 -> List ra text
+### list ip in prefix. List ra text
 for ip in $ipadd ;do
 	net=$(echo $ip | cut -d '/' -f 1);
 	i1=$(echo $net | cut -d '.' -f4);
