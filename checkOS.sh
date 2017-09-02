@@ -1,5 +1,5 @@
 #!/bin/bash
-echo ' =======Type your IP( type theo dang x.x.x.0  )======= ' 
+echo ' =======Type your IP( type theo dang x.x.x.0 neu khong thi khong chinh xac lam... )======= ' 
 read ipadd;
 echo ' =======Type prefix====== '
 read sub;
